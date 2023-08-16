@@ -89,15 +89,21 @@ class _ChatScreebState extends State<ChatScreen> {
                     ScaffoldMessenger.of(context).showSnackBar(
                       const SnackBar(content: Text('Generating Response')),
                     );
+                    // todo: Scrolling doesn't work correctly on the Open iOS Simulator.
+                    // todo: Convert the "what do you see?" prompt to a button or icon. 3D glasses, maybe?
                     if (nextAction == 'what do you see?') {
                       print('generating image');
-                      print(messages[messages.length-2]['content']);
-                      openAi.getImage(messages[messages.length-2]['content']).then((value) {
-                        messages.add({'role': 'system', 'type': 'image', 'content': value});
-                        setState(() {
-                          messages = messages;
+                      print('messages[len-2][content]: ' + messages[messages.length-2]['content']);
+                      print('messages[len-1][content]: ' + messages[messages.length-1]['content']);
+                      openAi.getImagePrompt(messages[messages.length-2]['content'], nextAction).then((prompt) {
+                        print("new image prompt: $prompt");
+                        openAi.getImage(prompt).then((value) {
+                          messages.add({'role': 'system', 'type': 'image', 'content': value});
+                          setState(() {
+                            messages = messages;
+                          });
+                          ScaffoldMessenger.of(context).hideCurrentSnackBar();
                         });
-                        ScaffoldMessenger.of(context).hideCurrentSnackBar();
                       });
                     }else{
                       openAi.getMessages(messages).then((value) {

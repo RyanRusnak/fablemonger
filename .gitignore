@@ -42,3 +42,7 @@ app.*.map.json
 /android/app/debug
 /android/app/profile
 /android/app/release
+
+# API Keys. This is a cheap-and-dirty way to keep API keys out of git
+# until we build a backend to store them.
+/lib/auth/secrets.dart
