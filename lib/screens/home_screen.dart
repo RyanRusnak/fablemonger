@@ -30,6 +30,8 @@ class _MyHomePageState extends State<MyHomePage> {
     'during a zombie outbreak. I am trying to escape from the zombies and get out of the city on a road bike, with the ultimate goal of getting to Alcatraz Island',
     'during a care bear convention. I am trying to do yoga with the care bears and spread love',
     'on the open seas swimming from Blackbeard the dreaded pirate and his bloodthirsty crew',
+    'during the Monarch butterfly migration. I am a Monarch butterfly trying to make it to Mexico',
+    'just before the asteroid impact that caused the dinosaurs to become extinct. I am a tiny mammal, trying to survive and find a mate',
   ];
 
   @override
@@ -74,8 +76,9 @@ class _MyHomePageState extends State<MyHomePage> {
             child: DropdownButton(
                 isExpanded: true,
                 value: story,
-                icon: const Icon(Icons.keyboard_arrow_down),    
+                icon: const Icon(Icons.keyboard_arrow_down),
                 items: items.map((String items) {
+                  // todo: Add a bullet or icon to make each item stand out?
                   return DropdownMenuItem(
                     value: items,
                     child: Text(items),
@@ -116,7 +119,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   // you'd often call a server or save the information in a database.
                   _formKey.currentState!.save();
                   List messages = [];
-                  String initialMessage = '''I would like you to play an interactive fiction game with me. You will tell a story, where I am the main character. At each decision point, youll stop and ask me what I do next. Please begin your prompt to me with “Decision time, $name". My answer will influence your next response. The story is set in $location. $story. My name is $name.''';
+                  String initialMessage = '''I would like you to play an interactive fiction game with me. You will tell a story, where I am the main character. At each decision point, youll stop and ask me what I do next. Please begin your prompt to me with “Decision time, $name". My answer will influence your next response. The story begins in $location $story. My name is $name.''';
                   OpenAi openAi = OpenAi();
                   messages.add({
                     'role': 'user',
